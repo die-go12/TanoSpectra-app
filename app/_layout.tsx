@@ -23,9 +23,11 @@ export default function RootLayout() {
         <Stack.Screen name="splash" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="status" options={{ headerShown: false }} />
+        <Stack.Screen name="request-reading" options={{ headerShown: false }} /> {/* Nueva pantalla */}
         <Stack.Screen name="+not-found" />
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
+

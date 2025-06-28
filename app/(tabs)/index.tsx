@@ -12,7 +12,7 @@ export default function HomeScreen() {
         <Text style={styles.title}>TanoSpectra</Text>
         <Text style={styles.subtitle}>Universidad Peruana Cayetano Heredia</Text>
 
-        <Pressable style={styles.button} onPress={() => router.push('/status')}>
+        <Pressable style={styles.button} onPress={() => router.push('/request-reading')}>
           <Text style={styles.buttonText}>Ingresar</Text>
         </Pressable>
 
