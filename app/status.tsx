@@ -1,25 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Image, Pressable, StyleSheet, StatusBar } from 'react-native';
-import { BarChart3 } from 'lucide-react-native';
-import { router } from 'expo-router'; // ✅ Importar router
+import { CheckCircle2, AlertTriangle, OctagonAlert, PieChart, FlaskConical, BarChart3 } from 'lucide-react-native';
+import { router } from 'expo-router';
 
 const levels = [
   {
-    name: 'Seguro',
+    name: 'Sin señales espectrales inusuales',
     color: 'green',
-    message: 'Nivel seguro de organofosfatos.',
+    details: [
+      { Icon: CheckCircle2, text: 'Estado seguro, sin señales espectrales inusuales detectadas.' },
+      { Icon: PieChart, text: 'Coincidencia con muestras limpias: 92%' },
+      { Icon: FlaskConical, text: 'El espectro es similar al de una muestra limpia, sin indicios de residuos.' },
+    ],
+    tanoMessage: 'Tano dice: “Todo se ve en orden, sin señales sospechosas.”',
     image: require('../assets/images/tano_happy.jpeg'),
   },
   {
-    name: 'Advertencia',
+    name: 'Desviación espectral moderada',
     color: 'orange',
-    message: 'Nivel moderado. Se recomienda precaución.',
+    details: [
+      { Icon: AlertTriangle, text: 'Estado moderado, desviación espectral detectada.' },
+      { Icon: PieChart, text: 'Coincidencia con muestras ligeramente alteradas: 64%' },
+      { Icon: FlaskConical, text: 'Se detectan variaciones en el espectro. Podrían deberse a residuos leves u otras causas.' },
+    ],
+    tanoMessage: 'Tano dice: “Hay algunas variaciones... mejor revisar con calma.”',
     image: require('../assets/images/tano_worried.jpeg'),
   },
   {
-    name: 'Peligro',
+    name: 'Desviación espectral significativa',
     color: 'red',
-    message: 'Nivel alto de organofosfatos. ¡Actúa inmediatamente!',
+    details: [
+      { Icon: OctagonAlert, text: 'Estado crítico, desviación espectral significativa detectada.' },
+      { Icon: PieChart, text: 'Coincidencia con muestras contaminadas: 86%' },
+      { Icon: FlaskConical, text: 'El espectro tiene alteraciones notorias, compatibles con muestras contaminadas.' },
+    ],
+    tanoMessage: 'Tano dice: “¡Ojo! Este resultado se parece al de una muestra contaminada.”',
     image: require('../assets/images/tano_scared.jpeg'),
   },
 ];
@@ -39,13 +54,13 @@ export default function StatusScreen() {
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#c8102e" />
-      
-      {/* Barra superior con ícono */}
+
+      {/* Barra superior */}
       <View style={styles.navbar}>
-          <Pressable style={styles.titleWrapper} onPress={() => router.push('/')}>
-            <BarChart3 color="#fff" size={26} strokeWidth={2.2} />
-            <Text style={styles.navbarTitle}>TanoSpectra</Text>
-          </Pressable>
+        <Pressable style={styles.titleWrapper} onPress={() => router.push('/')}>
+          <BarChart3 color="#fff" size={26} strokeWidth={2.2} />
+          <Text style={styles.navbarTitle}>TanoSpectra</Text>
+        </Pressable>
         <Pressable style={styles.aboutButton} onPress={() => router.push('/about')}>
           <Text style={styles.aboutButtonText}>Sobre Nosotros</Text>
         </Pressable>
@@ -69,9 +84,23 @@ export default function StatusScreen() {
             />
           ))}
         </View>
-        <Text style={[styles.level, { color: current.color }]}>{current.name}</Text>
         <Image source={current.image} style={styles.image} />
-        <Text style={styles.message}>{current.message}</Text>
+        <Text style={[styles.level, { color: current.color }]}>{current.name}</Text>
+
+        {/* Caja interna de detalles */}
+        <View style={styles.detailsBox}>
+          {current.details.map((detail, index) => (
+            <View key={index} style={styles.detailRow}>
+              <detail.Icon color={current.color} size={20} />
+              <Text style={styles.detailText}>{detail.text}</Text>
+            </View>
+          ))}
+        </View>
+        {/* Caja del mensaje de Tano */}
+        <View style={styles.tanoBox}>
+          <Text style={styles.tanoMessage}>{current.tanoMessage}</Text>
+        </View>
+
         <Pressable style={styles.button} onPress={simulateReading}>
           <Text style={styles.buttonText}>Simular Nueva Lectura</Text>
         </Pressable>
@@ -88,11 +117,15 @@ const styles = StyleSheet.create({
   navbar: {
     backgroundColor: '#c8102e',
     paddingTop: (StatusBar.currentHeight || 0) + 10,
-    paddingBottom: 20,
+    paddingBottom: 15,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 15,
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    zIndex: 1000,
   },
   titleWrapper: {
     flexDirection: 'row',
@@ -123,12 +156,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     elevation: 5,
+    marginTop: 120,
+    width: '90%',
+    alignSelf: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
     color: '#c8102e',
+    textAlign: 'center',
   },
   trafficLight: {
     flexDirection: 'row',
@@ -154,30 +191,64 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   level: {
-    fontSize: 28,
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 15,
+    textAlign: 'center',
   },
   image: {
-    width: 160,
-    height: 160,
+    width: 140,
+    height: 140,
     marginBottom: 15,
     resizeMode: 'contain',
   },
-  message: {
-    fontSize: 16,
-    textAlign: 'center',
-    marginBottom: 20,
+  detailsBox: {
+    backgroundColor: '#fce6eb',
+    padding: 15,
+    borderRadius: 10,
+    width: '100%',
+    marginBottom: 10,
+  },
+  detailRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  detailText: {
+    fontSize: 14,
     color: '#333',
+    marginLeft: 8,
+  },
+  tanoBox: {
+    marginTop: 10,
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#fce6eb',
+    alignItems: 'center',
+    marginBottom: 15,
+  },
+  tanoMessage: {
+    fontSize: 14,
+    textAlign: 'center',
+    fontStyle: 'italic',
+    color: '#555',
   },
   button: {
     backgroundColor: '#c8102e',
-    paddingHorizontal: 20,
-    paddingVertical: 10,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
     borderRadius: 6,
+    marginTop: 20,
   },
   buttonText: {
     color: '#fff',
-    fontSize: 16,
+    fontSize: 14,
+    textAlign: 'center',
   },
 });
+
+
+
+
+
+

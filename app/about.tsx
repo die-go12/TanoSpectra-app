@@ -48,7 +48,7 @@ export default function AboutScreen() {
         </Text>
 
         <TeamMember name="Andrés Rodas" role="Diseñador 3D y documentación técnica" />
-        <TeamMember name="Juan Diego López" role="Desarrollador móvil e interfaz 3D" />
+        <TeamMember name="Juan Diego López" role="Diseñador 3D y desarrollador del aplicativo" />
         <TeamMember name="Darío Huerta" role="Hardware y ensamblaje electrónico" />
         <TeamMember name="Harriet Mamani" role="Investigación química y pesticidas" />
         <TeamMember name="Jheyson Castañeda" role="Soporte técnico y pruebas en campo" />
