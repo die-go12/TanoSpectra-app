@@ -1,6 +1,6 @@
 import React, { useLayoutEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Image } from 'react-native';
-import { Lightbulb, Cpu, Users } from 'lucide-react-native';
+import { Lightbulb, Cpu, Users, UserCircle } from 'lucide-react-native';
 import { useNavigation } from 'expo-router';
 import { StackNavigationOptions } from '@react-navigation/stack';
 
@@ -23,7 +23,7 @@ export default function AboutScreen() {
     <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.title}>Sobre TanoSpectra</Text>
       <Text style={styles.subtitle}>
-        Innovando el análisis espectral para un futuro más seguro.
+        Innovando el análisis espectral para un futuro más saludable.
       </Text>
 
       <Section title="Nuestra Misión" icon={<Lightbulb size={28} color="#D92D1A" />}>
@@ -48,7 +48,7 @@ export default function AboutScreen() {
         </Text>
 
         <TeamMember name="Andrés Rodas" role="Diseñador 3D y documentación técnica" />
-        <TeamMember name="Juan Diego López" role="Diseñador 3D y desarrollador del aplicativo" />
+        <TeamMember name="Juan Diego López" role="Diseñador 3D y desarrollador de la app" />
         <TeamMember name="Darío Huerta" role="Hardware y ensamblaje electrónico" />
         <TeamMember name="Harriet Mamani" role="Investigación química y pesticidas" />
         <TeamMember name="Jheyson Castañeda" role="Soporte técnico y pruebas en campo" />
@@ -80,10 +80,9 @@ function Section({
 function TeamMember({ name, role }: { name: string; role: string }) {
   return (
     <View style={styles.teamMember}>
-      <Image
-        source={{ uri: 'https://placehold.co/80x80.png' }}
-        style={styles.avatar}
-      />
+      <View style={styles.avatar}>
+        <UserCircle size={48} color="#C8102E" />
+      </View>
       <View>
         <Text style={styles.memberName}>{name}</Text>
         <Text style={styles.memberRole}>{role}</Text>
@@ -155,10 +154,12 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   avatar: {
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 60,
     height: 60,
     borderRadius: 30,
-    backgroundColor: '#ddd',
+    backgroundColor: '#FCE6EB',
   },
   memberName: {
     fontSize: 16,
@@ -170,5 +171,6 @@ const styles = StyleSheet.create({
     color: '#888',
   },
 });
+
 
 
