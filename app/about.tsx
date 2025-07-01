@@ -50,7 +50,7 @@ export default function AboutScreen() {
         <TeamMember name="Andrés Rodas" role="Diseñador 3D y documentación técnica" />
         <TeamMember name="Juan Diego López" role="Diseñador 3D y desarrollador de la app" />
         <TeamMember name="Darío Huerta" role="Hardware y ensamblaje electrónico" />
-        <TeamMember name="Harriet Mamani" role="Investigación química y pesticidas" />
+        <TeamMember name="Harriet Mamani" role="Investigacón química y pesticidas" />
         <TeamMember name="Jheyson Castañeda" role="Soporte técnico y pruebas en campo" />
       </Section>
     </ScrollView>

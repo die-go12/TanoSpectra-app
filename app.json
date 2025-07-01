@@ -22,12 +22,11 @@
       },
       "edgeToEdgeEnabled": true,
       "permissions": [
-        "BLUETOOTH",
-        "BLUETOOTH_ADMIN",
         "BLUETOOTH_SCAN",
         "BLUETOOTH_CONNECT",
         "ACCESS_FINE_LOCATION"
-      ]
+      ],
+      "package": "com.diego.tanospectra"
     },
     "web": {
       "bundler": "metro",
@@ -35,17 +34,14 @@
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
-      "expo-router",
       [
         "expo-splash-screen",
         {
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-web-browser",
       [
         "react-native-ble-plx",
         {
@@ -57,7 +53,11 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "531e39ea-9b9b-4589-98a4-a92214aaddd7"
+      }
     }
   }
 }
-
